@@ -26,31 +26,26 @@ declare interface Storage {
 
 }
 
+declare type CreepMap = {[creepName: string]: Creep};
+declare type FlagMap = {[flagName: string]: Flag};
+declare type RoomMap = {[roomName: string]: Room};
+declare type SpawnMap = {[spawnName: string]: Spawn};
+declare type StructureMap = {[structureId: string]: Structure};
+declare type ConstructionSiteMap = {[constructionSiteId: string]: ConstructionSite};
+
 declare interface GameI {
     cpu: CPU,
-    creeps: {
-	[creepName: string]: Creep
-    },
-    flags: {
-	[flagName: string]: Flag
-    },
+    creeps: CreepMap,
+    flags: FlagMap,
     gcl: GlobalControlLevel,
     map: GameMap,
     market: Market,
-    rooms: {
-	[roomName: string]: Room
-    },
-    spawns: {
-	[spawnName: string]: Spawn
-    },
-    structures: {
-	[structureId: string]: Structure
-    },
-    constructionSites: {
-	[constructionSiteId: string]: ConstructionSite
-    },
+    rooms: RoomMap,
+    spawns: SpawnMap,
+    structures: StructureMap,
+    constructionSites: ConstructionSiteMap,
     time: number,
-    getObjectById<T>(id: string): T,
+    getObjectById<T>(id: string): ?T,
     notify(message: string, groupInterval?: number): void
 }
 
@@ -309,7 +304,14 @@ declare class Flag extends RoomObject {
     }): number
 }
 
-declare class GameMap  {
+declare type RoutePart = {
+	exit: string,
+	room: string
+};
+
+declare type TerrainMask = string;
+
+declare class GameMap {
     describeExits(roomName: string): {
 	"1": string,
 	"3": string,
@@ -323,15 +325,12 @@ declare class GameMap  {
 		(roomName: string, fromRoomName: string): any
 	    }
 	}
-    ): {
-	exit: string,
-	room: string
-    }[] | number;
+    ): RoutePart[] | number;
     getRoomLinearDistance(roomName1: string, roomName2: string): number;
     getTerrainAt(x: number, y: number, roomName: string): string;
-    getTerrainAt(pos: RoomPosition): string;
     isRoomProtected(roomName: string): boolean
 }
+// getTerrainAt(pos: RoomPosition): string;
 
 declare class Market  {
     incomingTransactions: Transaction[];

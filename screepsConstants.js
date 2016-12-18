@@ -290,9 +290,13 @@ declare var MODE_SURVIVAL: "survival";
 declare var MODE_WORLD: "world";
 declare var MODE_ARENA: "arena";
 
-declare var TERRAIN_MASK_WALL: 1;
-declare var TERRAIN_MASK_SWAMP: 2;
-declare var TERRAIN_MASK_LAVA: 4;
+declare type TERRAIN_MASK_WALL_TYPE = 1;
+declare type TERRAIN_MASK_SWAMP_TYPE = 2;
+declare type  TERRAIN_MASK_LAVA_TYPE = 4;
+
+declare var TERRAIN_MASK_WALL: TERRAIN_MASK_WALL_TYPE;
+declare var TERRAIN_MASK_SWAMP: TERRAIN_MASK_SWAMP_TYPE;
+declare var TERRAIN_MASK_LAVA: TERRAIN_MASK_LAVA_TYPE;
 
 declare var MAX_CONSTRUCTION_SITES: 100;
 declare var MAX_CREEP_SIZE: 50;
