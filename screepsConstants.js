@@ -62,6 +62,8 @@ declare var COLOR_BROWN: 8;
 declare var COLOR_GREY: 9;
 declare var COLOR_WHITE: 10;
 
+declare type COLOR_TYPE = number;
+
 declare var LOOK_CREEPS: "creep";
 declare var LOOK_ENERGY: "energy";
 declare var LOOK_RESOURCES: "resource";
@@ -75,14 +77,34 @@ declare var LOOK_TERRAIN: "terrain";
 
 declare var OBSTACLE_OBJECT_TYPES: ["spawn", "creep", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal","nuker"];
 
-declare var MOVE: "move";
-declare var WORK: "work";
-declare var CARRY: "carry";
-declare var ATTACK: "attack";
-declare var RANGED_ATTACK: "ranged_attack";
-declare var TOUGH: "tough";
-declare var HEAL: "heal";
-declare var CLAIM: "claim";
+declare type MOVE_TYPE = "move";
+declare type WORK_TYPE = "work";
+declare type CARRY_TYPE = "carry";
+declare type ATTACK_TYPE = "attack";
+declare type RANGED_ATTACK_TYPE = "ranged_attack";
+declare type TOUGH_TYPE = "tough";
+declare type HEAL_TYPE = "heal";
+declare type CLAIM_TYPE = "claim";
+
+declare type BODYPART_TYPE =
+    MOVE_TYPE |
+    WORK_TYPE |
+    CARRY_TYPE |
+    ATTACK_TYPE |
+    RANGED_ATTACK_TYPE |
+    TOUGH_TYPE |
+    HEAL_TYPE |
+    CLAIM_TYPE
+;
+
+declare var MOVE: MOVE_TYPE;
+declare var WORK: WORK_TYPE;
+declare var CARRY: CARRY_TYPE;
+declare var ATTACK: ATTACK_TYPE;
+declare var RANGED_ATTACK: RANGED_ATTACK_TYPE;
+declare var TOUGH: TOUGH_TYPE;
+declare var HEAL: HEAL_TYPE;
+declare var CLAIM: CLAIM_TYPE;
 
 declare var BODYPART_COST: {
     "move": 50,
@@ -119,7 +141,7 @@ declare var DISMANTLE_COST: 0.005;
 declare var RAMPART_DECAY_AMOUNT: 300;
 declare var RAMPART_DECAY_TIME: 100;
 declare var RAMPART_HITS: 1;
-declare var RAMPART_HITS_MAX: {2: 300000, 3: 1000000, 4: 3000000, 5: 10000000, 6: 30000000, 7: 100000000, 8: 300000000};
+declare var RAMPART_HITS_MAX: {"2": 300000, "3": 1000000, "4": 3000000, "5": 10000000, "6": 30000000, "7": 100000000, "8": 300000000};
 
 declare var ENERGY_REGEN_TIME: 300;
 declare var ENERGY_DECAY: 1000;
@@ -138,7 +160,7 @@ declare var WALL_HITS: 1;
 declare var WALL_HITS_MAX: 300000000;
 
 declare var EXTENSION_HITS: 1000;
-declare var EXTENSION_ENERGY_CAPACITY: {0: 50, 1: 50, 2: 50, 3: 50, 4: 50, 5: 50, 6: 50, 7: 100, 8: 200};
+declare var EXTENSION_ENERGY_CAPACITY: {"0": 50, "1": 50, "2": 50, "3": 50, "4": 50, "5": 50, "6": 50, "7": 100, "8": 200};
 
 declare var ROAD_HITS: 5000;
 declare var ROAD_WEAROUT: 1;
@@ -193,25 +215,25 @@ declare var CONSTRUCTION_COST: {
 };
 declare var CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
-declare var CONTROLLER_LEVELS: {1: 200; 2: 45000; 3: 135000; 4: 405000; 5: 1215000; 6: 3645000; 7: 10935000};
-declare var CONTROLLER_STRUCTURES: {
-    "spawn": {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 2, 8: 3},
-    "extension": {0: 0, 1: 0, 2: 5, 3: 10, 4: 20, 5: 30, 6: 40, 7: 50, 8: 60},
-    "link": {1: 0, 2: 0, 3: 0, 4: 0, 5: 2, 6: 3, 7: 4, 8: 6},
-    "road": {0: 2500, 1: 2500, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-    "constructedWall": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-    "rampart": {1: 0, 2: 2500, 3: 2500, 4: 2500, 5: 2500, 6: 2500, 7: 2500, 8: 2500},
-    "storage": {1: 0, 2: 0, 3: 0, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1},
-    "tower": {1: 0, 2: 0, 3: 1, 4: 1, 5: 2, 6: 2, 7: 3, 8: 6},
-    "observer": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
-    "powerSpawn": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1},
-    "extractor": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
-    "terminal": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 1, 7: 1, 8: 1},
-    "lab": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 3, 7: 6, 8: 10},
-    "container": {0: 5, 1: 5, 2: 5, 3: 5, 4: 5, 5: 5, 6: 5, 7: 5, 8: 5},
-    "nuker": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0, 8: 1}
-};
-declare var CONTROLLER_DOWNGRADE: {1: 20000, 2: 5000, 3: 10000, 4: 20000, 5: 40000, 6: 60000, 7: 100000, 8: 150000};
+declare var CONTROLLER_LEVELS: {"1": 200; "2": 45000; "3": 135000; "4": 405000; "5": 1215000; "6": 3645000; "7": 10935000};
+// declare var CONTROLLER_STRUCTURES: {
+//     "spawn": {"0": 0, "1": 1, "2": 1, "3": 1, "4": 1, "5": 1, "6": 1, "7": 2, "8": 3},
+//     "extension": {"0": 0, "1": 0, "2": 5, "3": 10, "4": 20, "5": 30, "6": 40, "7": 50, "8": 60},
+//     "link": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 2, "6": 3, "7": 4, "8": 6},
+//     "road": {"0": 2500, "1": 2500, "2": 2500, "3": 2500, "4": 2500, "5": 2500, "6": 2500, "7": 2500, "8": 2500},
+//     "constructedWall": {"1": 0, "2": 2500, "3": 2500, "4": 2500, "5": 2500, "6": 2500, "7": 2500, "8": 2500},
+//     "rampart": {"1": 0, "2": 2500, "3": 2500, "4": 2500, "5": 2500, "6": 2500, "7": 2500, "8": 2500},
+//     "storage": {"1": 0, "2": 0, "3": 0, "4": 1, "5": 1, "6": 1, "7": 1, "8": 1},
+//     "tower": {"1": 0, "2": 0, "3": 1, "4": 1, "5": 2, "6": 2, "7": 3, "8": 6},
+//     "observer": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 1},
+//     "powerSpawn": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 1},
+//     "extractor": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 1, "7": 1, "8": 1},
+//     "terminal": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 1, "7": 1, "8": 1},
+//     "lab": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 3, "7": 6, "8": 10},
+//     "container": {"0": 5, "1": 5, "2": 5, "3": 5, "4": 5, "5": 5, "6": 5, "7": 5, "8": 5},
+//     "nuker": {"1": 0, "2": 0, "3": 0, "4": 0, "5": 0, "6": 0, "7": 0, "8": 1}
+// };
+declare var CONTROLLER_DOWNGRADE: {"1": 20000, "2": 5000, "3": 10000, "4": 20000, "5": 40000, "6": 60000, "7": 100000, "8": 150000};
 declare var CONTROLLER_CLAIM_DOWNGRADE: 0.2;
 declare var CONTROLLER_RESERVE: 1;
 declare var CONTROLLER_RESERVE_MAX: 5000;
@@ -288,16 +310,16 @@ declare var MINERAL_MIN_AMOUNT: {
 declare var MINERAL_RANDOM_FACTOR: 2;
 
 declare var MINERAL_DENSITY: {
-    1: 15000,
-    2: 35000,
-    3: 70000,
-    4: 100000
+    "1": 15000,
+    "2": 35000,
+    "3": 70000,
+    "4": 100000
 };
 declare var MINERAL_DENSITY_PROBABILITY  : {
-    1: 0.1,
-    2: 0.5,
-    3: 0.9,
-    4: 1.0
+    "1": 0.1,
+    "2": 0.5,
+    "3": 0.9,
+    "4": 1.0
 };
 declare var MINERAL_DENSITY_CHANGE: 0.05;
 
@@ -324,8 +346,8 @@ declare var NUKER_GHODIUM_CAPACITY: 5000;
 declare var NUKE_LAND_TIME: 50000;
 declare var NUKE_RANGE: 10;
 declare var NUKE_DAMAGE: {
-    0: 10000000,
-    2: 5000000
+    "0": 10000000,
+    "2": 5000000
 };
 
 declare var PORTAL_DECAY: 30000;
@@ -645,77 +667,57 @@ declare var POWER_BANK_RESPAWN_TIME: 50000;
 
 declare var INVADERS_ENERGY_GOAL: 100000;
 
-declare var BODYPARTS_ALL : [
-  MOVE,
-  WORK,
-  CARRY,
-  ATTACK,
-  RANGED_ATTACK,
-  TOUGH,
-  HEAL,
-  CLAIM
-];
+declare var BODYPARTS_ALL : BODYPART_TYPE[];
 
 declare var RESOURCES_ALL : [
-  RESOURCE_ENERGY,
-  RESOURCE_POWER,
+  typeof RESOURCE_ENERGY,
+  typeof RESOURCE_POWER,
 
-  RESOURCE_HYDROGEN,
-  RESOURCE_OXYGEN,
-  RESOURCE_UTRIUM,
-  RESOURCE_KEANIUM,
-  RESOURCE_LEMERGIUM,
-  RESOURCE_ZYNTHIUM,
-  RESOURCE_CATALYST,
-  RESOURCE_GHODIUM,
+  // RESOURCE_HYDROGEN,
+  // RESOURCE_OXYGEN,
+  // RESOURCE_UTRIUM,
+  // RESOURCE_KEANIUM,
+  // RESOURCE_LEMERGIUM,
+  // RESOURCE_ZYNTHIUM,
+  // RESOURCE_CATALYST,
+  // RESOURCE_GHODIUM,
 
-  RESOURCE_HYDROXIDE,
-  RESOURCE_ZYNTHIUM_KEANITE,
-  RESOURCE_UTRIUM_LEMERGITE,
+  // RESOURCE_HYDROXIDE,
+  // RESOURCE_ZYNTHIUM_KEANITE,
+  // RESOURCE_UTRIUM_LEMERGITE,
 
-  RESOURCE_UTRIUM_HYDRIDE,
-  RESOURCE_UTRIUM_OXIDE,
-  RESOURCE_KEANIUM_HYDRIDE,
-  RESOURCE_KEANIUM_OXIDE,
-  RESOURCE_LEMERGIUM_HYDRIDE,
-  RESOURCE_LEMERGIUM_OXIDE,
-  RESOURCE_ZYNTHIUM_HYDRIDE,
-  RESOURCE_ZYNTHIUM_OXIDE,
-  RESOURCE_GHODIUM_HYDRIDE,
-  RESOURCE_GHODIUM_OXIDE,
+  // RESOURCE_UTRIUM_HYDRIDE,
+  // RESOURCE_UTRIUM_OXIDE,
+  // RESOURCE_KEANIUM_HYDRIDE,
+  // RESOURCE_KEANIUM_OXIDE,
+  // RESOURCE_LEMERGIUM_HYDRIDE,
+  // RESOURCE_LEMERGIUM_OXIDE,
+  // RESOURCE_ZYNTHIUM_HYDRIDE,
+  // RESOURCE_ZYNTHIUM_OXIDE,
+  // RESOURCE_GHODIUM_HYDRIDE,
+  // RESOURCE_GHODIUM_OXIDE,
 
-  RESOURCE_UTRIUM_ACID,
-  RESOURCE_UTRIUM_ALKALIDE,
-  RESOURCE_KEANIUM_ACID,
-  RESOURCE_KEANIUM_ALKALIDE,
-  RESOURCE_LEMERGIUM_ACID,
-  RESOURCE_LEMERGIUM_ALKALIDE,
-  RESOURCE_ZYNTHIUM_ACID,
-  RESOURCE_ZYNTHIUM_ALKALIDE,
-  RESOURCE_GHODIUM_ACID,
-  RESOURCE_GHODIUM_ALKALIDE,
+  // RESOURCE_UTRIUM_ACID,
+  // RESOURCE_UTRIUM_ALKALIDE,
+  // RESOURCE_KEANIUM_ACID,
+  // RESOURCE_KEANIUM_ALKALIDE,
+  // RESOURCE_LEMERGIUM_ACID,
+  // RESOURCE_LEMERGIUM_ALKALIDE,
+  // RESOURCE_ZYNTHIUM_ACID,
+  // RESOURCE_ZYNTHIUM_ALKALIDE,
+  // RESOURCE_GHODIUM_ACID,
+  // RESOURCE_GHODIUM_ALKALIDE,
 
-  RESOURCE_CATALYZED_UTRIUM_ACID,
-  RESOURCE_CATALYZED_UTRIUM_ALKALIDE,
-  RESOURCE_CATALYZED_KEANIUM_ACID,
-  RESOURCE_CATALYZED_KEANIUM_ALKALIDE,
-  RESOURCE_CATALYZED_LEMERGIUM_ACID,
-  RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE,
-  RESOURCE_CATALYZED_ZYNTHIUM_ACID,
-  RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE,
-  RESOURCE_CATALYZED_GHODIUM_ACID,
-  RESOURCE_CATALYZED_GHODIUM_ALKALIDE
+  // RESOURCE_CATALYZED_UTRIUM_ACID,
+  // RESOURCE_CATALYZED_UTRIUM_ALKALIDE,
+  // RESOURCE_CATALYZED_KEANIUM_ACID,
+  // RESOURCE_CATALYZED_KEANIUM_ALKALIDE,
+  // RESOURCE_CATALYZED_LEMERGIUM_ACID,
+  // RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE,
+  // RESOURCE_CATALYZED_ZYNTHIUM_ACID,
+  // RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE,
+  // RESOURCE_CATALYZED_GHODIUM_ACID,
+  // RESOURCE_CATALYZED_GHODIUM_ALKALIDE
 ];
 
-declare var COLORS_ALL : [
-  COLOR_RED,
-  COLOR_PURPLE,
-  COLOR_BLUE,
-  COLOR_CYAN,
-  COLOR_GREEN,
-  COLOR_YELLOW,
-  COLOR_ORANGE,
-  COLOR_BROWN,
-  COLOR_GREY,
-  COLOR_WHITE
-];
+declare var COLORS_ALL : COLOR_TYPE[];

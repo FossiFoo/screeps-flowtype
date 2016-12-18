@@ -483,7 +483,7 @@ declare class Spawn extends OwnedStructure {
 	remainingTime: number
     };
     canCreateCreep(body: BodyPartDefinition[], name?: string): number;
-    createCreep(body: BodyPartDefinition[], name?: string, memory?: any): number | string;
+    createCreep(body: BODYPART_TYPE[], name?: string, memory?: any): number | string;
     destroy(): number;
     isActive(): boolean;
     notifyWhenAttacked(enabled: boolean): number;
@@ -630,12 +630,4 @@ declare class StructurePortal extends Structure {
     ticksToDecay: number
 }
 
-declare var MOVE : BodyPartDefinition;
-declare var WORK : BodyPartDefinition;
-declare var CARRY : BodyPartDefinition;
-declare var ATTACK : BodyPartDefinition;
-declare var RANGED_ATTACK : BodyPartDefinition;
-declare var HEAL : BodyPartDefinition;
-declare var CLAIM : BodyPartDefinition;
-declare var TOUGH : BodyPartDefinition;
 declare var Game : GameI;
