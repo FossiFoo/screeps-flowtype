@@ -1,3 +1,5 @@
+declare type ErrorCode = string;
+
 declare type Controller = StructureController;
 
 declare type Extension = StructureExtension;
@@ -463,6 +465,8 @@ declare class Source extends RoomObject {
     ticksToRegeneration: number
 }
 
+declare type CreepName = string;
+
 declare class Spawn extends OwnedStructure {
     energy: number;
     energyCapacity: number;
@@ -482,7 +486,7 @@ declare class Spawn extends OwnedStructure {
 	remainingTime: number
     };
     canCreateCreep(body: BodyPartDefinition[], name?: string): number;
-    createCreep(body: BODYPART_TYPE[], name?: string, memory?: any): number | string;
+    createCreep(body: BODYPART_TYPE[], name?: string, memory?: any): ErrorCode | CreepName ;
     destroy(): number;
     isActive(): boolean;
     notifyWhenAttacked(enabled: boolean): number;
